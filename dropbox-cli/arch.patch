@@ -1,0 +1,17 @@
+--- dropbox.py.orig	2014-01-01 19:33:41.145158871 +0100
++++ dropbox.py	2014-01-01 19:51:57.404672769 +0100
+@@ -1,4 +1,4 @@
+-#!/usr/bin/python
++#!/usr/bin/env python2
+ #
+ # Copyright (c) Dropbox, Inc.
+ #
+@@ -724,6 +724,8 @@
+ 
+ def start_dropbox():
+     db_path = os.path.expanduser(u"~/.dropbox-dist/dropboxd").encode(sys.getfilesystemencoding())
++    if not os.path.exists(db_path):
++        db_path = u"/usr/bin/dropboxd"
+     if os.access(db_path, os.X_OK):
+         f = open("/dev/null", "w")
+        

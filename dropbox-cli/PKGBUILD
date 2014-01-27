@@ -1,0 +1,21 @@
+# Maintainer : Erik Wilson <erikwilson@magnorum.com>
+
+pkgname=dropbox-cli
+pkgver=1.6.1
+pkgrel=1
+pkgdesc="Command line interface for dropbox written in python"
+arch=('any')
+url="http://www.dropbox.com"
+license=('GPL')
+depends=("python2" "dropbox")
+source=("https://www.dropbox.com/download?dl=packages/dropbox.py"
+        "$pkgname-arch.patch")
+md5sums=('96e41f2027a3a5da1cc569be489a108bef90c6297762bf052968288231ee3339')
+ 
+prepare() {
+  patch --follow-symlinks < $pkgname-arch.patch
+}
+ 
+package() {
+  install -Dm755 dropbox.py "$pkgdir"/usr/bin/dropbox
+}

@@ -1,0 +1,30 @@
+# Maintainer: Erik Wilson <erikwilson@magnorum.com>
+
+pkgname=qbittorrent
+pkgver=3.1.5
+pkgrel=1
+pkgdesc="qBittorrent is a bittorrent client programmed in C++ / Qt4 that uses libtorrent (sometimes called rblibtorrent)"
+arch=('i686' 'x86_64')
+url="http://www.qbittorrent.org"
+license=('custom GPL2')
+depends=('qt4' 'libtorrent-rasterbar')
+install=$pkgname.install
+source=("http://downloads.sourceforge.net/sourceforge/qbittorrent/$pkgname-$pkgver.tar.xz")
+sha256sums=('db48b79565f88a1ffe30b6adababc5b4d694324e953e06123751a1f52e59dcc7')
+
+build() 
+{
+  cd $pkgname-$pkgver
+
+  ./configure --prefix=/usr
+  make
+}
+
+package() 
+{
+  cd $pkgname-$pkgver
+
+  make INSTALL_ROOT="$pkgdir/" install
+
+  install -Dm644 COPYING "$pkgdir"/usr/share/licenses/$pkgname/COPYING
+}
